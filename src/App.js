@@ -1,65 +1,50 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import './App.css';
+import { Button, List, ListItem } from './Components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as todoActions from './actions/todoActions';
+import PropTypes from 'prop-types';
 
-const Button = styled.a`
-  /* This renders the buttons above... Edit me! */
-  display: inline-block;
-  border-radius: 3px;
-  padding: 0.5rem 0;
-  margin: 0.5rem 1rem;
-  width: 11rem;
-  background: pink;
-  color: white;
-  border: 2px solid white;
-`
 
-const List = styled.ul`
-  list-style-type: none;
-  margin: 0;
-`
 
-const ListItem = styled.li`
-  color: dodgerblue;
-  padding-bottom: 1rem;
-`
-
-class Window extends Component {
-  constructor(props){
-    super(props)
-    this.state = {todos: []}
-  }
-  loadData () {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(x => x.json())
-      .then(x => this.setState({todos: x}))
-      .catch(er => console.log(er))
-  };
-  render(){
-    const todos = this.state.todos.map(x =>
+class App extends Component {
+  render() {
+    const todos = this.props.todos.map(x =>
       <ListItem key={x.id}>{x.title}</ListItem>
-    )
-    return (
-      <div>
-
-        <Button onClick={e => this.loadData()}>Load</Button>
+      )
+      return (
+        <div className="App">
+        <Button onClick={e => this.props.todoActions.fetchTodos()}>Load</Button>
         <List>
           {todos}
         </List>
-
-      </div>
-    )
-  }
-}
-class App extends Component {
-  render() {
-
-    return (
-      <div className="App">
-        <Window />
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  todoActions: PropTypes.object,
+  todos: PropTypes.array
+}
+
+function mapStateToProps(state){
+  // hydrate component props from application state
+  return {
+    todos: state.todo
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  // ensure action shave access to Redux's dispatch
+  return {
+    todoActions: bindActionCreators(todoActions, dispatch)
+  }
+}
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
