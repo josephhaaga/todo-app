@@ -19,3 +19,7 @@ export function fetchTodos() {
         .then(x => dispatch(receiveTodos(x)))
     }
 }
+
+export function clearTodos() {
+    return { type: types.CLEAR_TODOS }
+}

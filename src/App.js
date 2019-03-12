@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import { Button, List, ListItem } from './Components';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as todoActions from './actions/todoActions';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+
+import * as todoActions from './actions/todoActions';
 
 
 
@@ -16,6 +17,7 @@ class App extends Component {
       return (
         <div className="App">
         <Button onClick={e => this.props.todoActions.fetchTodos()}>Load</Button>
+        <Button onClick={e => this.props.todoActions.clearTodos()}>Clear</Button>
         <List>
           {todos}
         </List>
@@ -37,7 +39,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  // ensure action shave access to Redux's dispatch
+  // ensure actions have access to Redux's dispatch
   return {
     todoActions: bindActionCreators(todoActions, dispatch)
   }
