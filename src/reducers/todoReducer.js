@@ -8,9 +8,9 @@ export default function todo(state = initialState.todos, action) {
             console.log("FETCH_TODOS action")
             return action;
         case RECEIVE_TODOS:
-            newState = action.todos;
             console.log("RECEIVE_TODOS action");
-            return newState;
+            // newState.todos = action.todos
+            return action.todos;
         case CLEAR_TODOS:
             newState = []
             console.log("CLEAR_TODOS action");

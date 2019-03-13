@@ -1,3 +1,7 @@
 export const FETCH_TODOS = 'FETCH_TODOS';
 export const RECEIVE_TODOS = 'RECEIVE_TODOS';
 export const CLEAR_TODOS = 'CLEAR_TODOS';
+
+export const FETCH_EVENTS = 'FETCH_EVENTS';
+export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
+export const CLEAR_EVENTS = 'CLEAR_EVENTS';
